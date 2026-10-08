@@ -1,0 +1,71 @@
+{
+  "name": "vscode-nools-lsp",
+  "displayName": "Nools Language Support & Semantic Linter",
+  "description": "Language Server Protocol extension for Nools rule engine with semantic diagnostics, undefined term detection, and CTAT pedagogical support.",
+  "version": "1.0.0",
+  "publisher": "cmu-msle",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters"
+  ],
+  "keywords": [
+    "nools",
+    "ctat",
+    "cognitive-tutors",
+    "rule-engine",
+    "lsp"
+  ],
+  "activationEvents": [
+    "onLanguage:nools"
+  ],
+  "main": "./client/src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "nools",
+        "aliases": [
+          "Nools",
+          "nools"
+        ],
+        "extensions": [
+          ".nools"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "nools",
+        "scopeName": "source.nools",
+        "path": "./syntaxes/nools.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Nools LSP Configuration",
+      "properties": {
+        "nools.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the Nools language server."
+        },
+        "nools.diagnostics.checkUndefinedSlots": {
+          "type": "boolean",
+          "default": true,
+          "description": "Warn when a rule constraint references a slot not present in the fact type definition."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node test/run-tests.js"
+  }
+}

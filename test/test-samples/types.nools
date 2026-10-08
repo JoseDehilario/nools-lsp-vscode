@@ -1,0 +1,31 @@
+// Fact Type Definitions for CTAT Cognitive Model
+define Problem {
+    name: null,
+    subgoals: [],
+    constructor: function(name, subgoals) {
+        this.name = name;
+        this.subgoals = subgoals;
+    }
+}
+
+define Option {
+    name: null,
+    cost: null,
+    amount: null,
+    constructor: function(name, cost, amount) {
+        this.name = name;
+        this.cost = cost;
+        this.amount = amount;
+    }
+}
+
+define Fraction {
+    name: null,
+    num: null,
+    den: null,
+    constructor: function(name, num, den) {
+        this.name = name;
+        this.num = num;
+        this.den = den;
+    }
+}

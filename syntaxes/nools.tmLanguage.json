@@ -1,0 +1,140 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Nools",
+  "scopeName": "source.nools",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#ctat-primitives" },
+    { "include": "#rete-primitives" },
+    { "include": "#rule-definition" },
+    { "include": "#define-block" },
+    { "include": "#pattern-alias" },
+    { "include": "#js-operators" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.nools",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.nools",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.nools",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [{ "name": "constant.character.escape.nools", "match": "\\\\." }]
+        },
+        {
+          "name": "string.quoted.single.nools",
+          "begin": "'",
+          "end": "'",
+          "patterns": [{ "name": "constant.character.escape.nools", "match": "\\\\." }]
+        },
+        {
+          "name": "string.template.nools",
+          "begin": "`",
+          "end": "`",
+          "patterns": [{ "name": "constant.character.escape.nools", "match": "\\\\." }]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.nools",
+          "match": "\\b\\d+(\\.\\d+)?([eE][+-]?\\d+)?\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.nools",
+          "match": "\\b(rule|when|then|define|global|function|import)\\b"
+        },
+        {
+          "name": "keyword.other.nools",
+          "match": "\\b(salience|agenda-group|auto-focus|from|in|or|not|exists|constructor)\\b"
+        },
+        {
+          "name": "keyword.control.js.nools",
+          "match": "\\b(let|const|var|if|else|for|while|do|return|new|try|catch|throw|typeof|instanceof)\\b"
+        },
+        {
+          "name": "constant.language.nools",
+          "match": "\\b(true|false|null|undefined|NaN|Infinity)\\b"
+        }
+      ]
+    },
+    "ctat-primitives": {
+      "patterns": [
+        {
+          "name": "support.function.ctat.nools",
+          "match": "\\b(checkSAI|predictSAI|backtrack|setCustomField|setSuccessOrFeedback|setSuccessOrCommFailure|printAgenda|printFacts|printRules|printConflictTree)\\b"
+        }
+      ]
+    },
+    "rete-primitives": {
+      "patterns": [
+        {
+          "name": "support.function.rete.nools",
+          "match": "\\b(assert|modify|retract|halt|focus|emit)\\b"
+        }
+      ]
+    },
+    "rule-definition": {
+      "match": "\\b(rule)\\s+([a-zA-Z0-9_]+)",
+      "captures": {
+        "1": { "name": "keyword.control.nools" },
+        "2": { "name": "entity.name.function.rule.nools" }
+      }
+    },
+    "define-block": {
+      "match": "\\b(define)\\s+([a-zA-Z0-9_]+)",
+      "captures": {
+        "1": { "name": "keyword.control.nools" },
+        "2": { "name": "entity.name.type.class.nools" }
+      }
+    },
+    "pattern-alias": {
+      "match": "\\b([a-zA-Z0-9_]+)\\s*(:)\\s*([a-zA-Z0-9_]+)",
+      "captures": {
+        "1": { "name": "variable.other.alias.nools" },
+        "2": { "name": "punctuation.separator.colon.nools" },
+        "3": { "name": "entity.name.type.class.nools" }
+      }
+    },
+    "js-operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.comparison.nools",
+          "match": "(===|!==|==|!=|<=|>=|<|>)"
+        },
+        {
+          "name": "keyword.operator.logical.nools",
+          "match": "(&&|\\|\\||!)"
+        },
+        {
+          "name": "keyword.operator.arithmetic.nools",
+          "match": "(\\+|-|\\*|/|%)"
+        },
+        {
+          "name": "keyword.operator.assignment.nools",
+          "match": "(=|\\+=|-=|\\*=|/=)"
+        }
+      ]
+    }
+  }
+}

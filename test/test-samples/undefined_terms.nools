@@ -1,0 +1,32 @@
+import("types.nools");
+
+global ALLOWED_RETRIES = 5;
+
+rule TestUndefinedTerms {
+    when {
+        p: Problem;
+        // Error 1: Undefined fact type
+        x: PhantomType;
+        // Error 2: Undefined term in condition
+        opt: Option opt.cost > unknownThreshold { fakeSlot: badBinding }; // Warning 3: fakeSlot not in Option
+    }
+    then {
+        // Error 4: Undefined alias ghostAlias
+        modify(ghostAlias, "name", "ghost");
+        
+        // Error 5: Undefined variable undeclaredTotal (missing let/const/var)
+        undeclaredTotal = opt.cost * 10;
+        
+        checkSAI({ selection: "input1", action: "Update", input: undeclaredTotal });
+    }
+}
+
+// Error 6: Duplicate rule definition
+rule TestUndefinedTerms {
+    when {
+        p: Problem;
+    }
+    then {
+        halt();
+    }
+}

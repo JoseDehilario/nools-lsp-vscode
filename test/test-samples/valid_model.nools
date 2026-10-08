@@ -1,0 +1,33 @@
+import("types.nools");
+
+global MAX_ATTEMPTS = 3;
+global DEBUG = true;
+
+rule Bootstrap {
+    when {
+        b: Boolean b === true from true;
+    }
+    then {
+        assert(new Problem("FractionAddition", []));
+        assert(new Option("opt1", 10, 2));
+        halt();
+    }
+}
+
+rule EnterGivenAmount {
+    salience: 10,
+    agenda-group: "main",
+    when {
+        p: Problem p.name == "FractionAddition" { subgoals: sgList };
+        opt: Option opt.cost > 0;
+    }
+    then {
+        let scaledCost = opt.cost * 2;
+        if (checkSAI({ selection: "field1", action: "UpdateTextField", input: scaledCost })) {
+            modify(opt, "cost", scaledCost);
+            setCustomField("strategy_used", "proportional_scaling");
+        } else {
+            backtrack();
+        }
+    }
+}
